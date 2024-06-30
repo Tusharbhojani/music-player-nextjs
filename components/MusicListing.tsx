@@ -1,15 +1,15 @@
 import { Reorder } from "framer-motion";
 import React, { useState } from "react";
-import { SONGS } from "@/data/songs";
 import Image from "next/image";
+import { useMusic } from "@/lib/context/music";
 
 export default function MusicListing() {
-  const [songs, setSongs] = useState(SONGS);
+  const [{ songs }, { setSongs }] = useMusic();
   const [isDragging, setIsDragging] = useState(false);
 
-  function handleClick(){
-    if(!isDragging){
-        console.log("click event");
+  function handleClick() {
+    if (!isDragging) {
+      console.log("click event");
     }
   }
 
@@ -34,7 +34,7 @@ export default function MusicListing() {
                 onDragEnd={() => setIsDragging(false)}
                 onClick={handleClick}
                 as="tr"
-                 className="hover:bg-[#4c0000cd] transition-colors cursor-pointer"
+                className="hover:bg-[#4c0000cd] transition-colors cursor-pointer"
                 value={song}
                 key={song.id}
               >
