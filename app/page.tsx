@@ -1,5 +1,5 @@
 "use client";
-import MusicPlayer from "@/components/MusicPlayer";
+import MusicPlayer from "@/components/MusicComponent/MusicPlayer";
 import SearchResult from "@/components/SearchResult";
 import { MusicProvider } from "@/lib/context/music";
 

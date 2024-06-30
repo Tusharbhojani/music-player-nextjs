@@ -5,7 +5,7 @@ import Image from "next/image";
 import { GiNextButton, GiPreviousButton } from "react-icons/gi";
 import { FaMusic, FaPause, FaPlay } from "react-icons/fa";
 import { getNextSongId, getPrevSongId } from "@/lib/utils";
-import ProgressBar from "./MusicComponent/ProgressBar";
+import ProgressBar from "./ProgressBar";
 import classNames from "classnames";
 
 export type progressProps = {

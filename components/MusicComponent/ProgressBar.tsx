@@ -1,5 +1,5 @@
 import React from "react";
-import { progressProps } from "../MusicPlayer";
+import { progressProps } from "./MusicPlayer";
 
 const formatTime = (seconds: number) => {
   const minutes = Math.floor(seconds / 60);

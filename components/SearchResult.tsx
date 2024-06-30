@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import ArtistBanner from "./ArtistBanner";
-import MusicListing from "./MusicListing";
 import { getData } from "@/lib/apiService";
 import { useMusic } from "@/lib/context/music";
+import MusicListing from "./MusicComponent/MusicListing";
 
 export default function SearchResult() {
   const [{}, { setSongs }] = useMusic();

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useMusic } from "@/lib/context/music";
 import classNames from "classnames";
 import { FaMusic } from "react-icons/fa";
-import PlaylistShimmer from "./shimmers/PlaylistShimmer";
+import PlaylistShimmer from "../shimmers/PlaylistShimmer";
 
 export default function MusicListing() {
   const [
