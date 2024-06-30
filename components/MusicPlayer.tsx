@@ -66,6 +66,14 @@ export default function MusicPlayer() {
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
         }
+
+        if (soundInstance.current) {
+          setProgress({
+            seek: soundInstance.current.seek(),
+            totalDuration: soundInstance.current.duration(),
+          });
+        }
+        
         intervalRef.current = setInterval(() => {
           if (soundInstance.current) {
             //  / soundInstance.current.duration() * 100
