@@ -8,7 +8,7 @@ export default function Home() {
     <MusicProvider>
       <main className="fixed inset-0 w-full h-full lg:grid lg:grid-cols-12">
         <div className="lg:col-span-2 bg-black"></div>
-        <div className="lg:col-span-7 2xl:col-span-8 search_result_component h-full overflow-y-scroll">
+        <div className="lg:col-span-7 2xl:col-span-8 search_result_component h-full overflow-y-auto">
           <SearchResult />
         </div>
         <div className="lg:col-span-3 2xl:col-span-2 bg-black">
