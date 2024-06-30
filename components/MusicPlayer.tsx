@@ -5,15 +5,26 @@ import Image from "next/image";
 import { GiNextButton, GiPreviousButton } from "react-icons/gi";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { getNextSongId, getPrevSongId } from "@/lib/utils";
+import ProgressBar from "./MusicComponent/ProgressBar";
+
+export type progressProps = {
+  seek: number;
+  totalDuration: number;
+};
 
 export default function MusicPlayer() {
-
   const [
     { currentMusicId, isPlaying, songs },
     { setIsPlaying, setCurrentMusicId },
   ] = useMusic();
   const soundInstance = useRef<Howl | null>(null);
   const [currentMusic, setCurrentMusic] = useState<SongProps | null>(null);
+  const [progress, setProgress] = useState<progressProps>({
+    seek: 0,
+    totalDuration: 0,
+  });
+
+  const intervalRef = useRef<any>(null);
 
   useEffect(() => {
     if (currentMusicId) {
@@ -28,10 +39,48 @@ export default function MusicPlayer() {
       });
       soundInstance.current.play();
       setIsPlaying(true);
+
+      setProgress({
+        seek: 0,
+        totalDuration: 0,
+      });
+
+      soundInstance.current.on("end", function () {
+        
+        setIsPlaying(false);
+        if( intervalRef.current){
+          clearInterval(intervalRef.current);
+        }
+      });
+
+      soundInstance.current.on("pause", function () {
+        setIsPlaying(false);
+        if( intervalRef.current){
+          clearInterval(intervalRef.current);
+        }
+      });
+
+      soundInstance.current.on("play", function () {
+        if( intervalRef.current){
+          clearInterval(intervalRef.current);
+        }
+        intervalRef.current = setInterval(() => {
+          if (soundInstance.current) {
+            //  / soundInstance.current.duration() * 100
+            setProgress({
+              seek: soundInstance.current.seek(),
+              totalDuration: soundInstance.current.duration(),
+            });
+          }
+        }, 1000);
+      });
     }
 
     return () => {
       // soundInstance.pause();
+      if( intervalRef.current){
+        clearInterval(intervalRef.current);
+      }
       if (soundInstance.current) {
         soundInstance.current.unload();
       }
@@ -80,7 +129,12 @@ export default function MusicPlayer() {
           />
 
           <p className="text-center mt-3">{currentMusic.title}</p>
-          <p className="text-center text-gray-400 text-sm">{currentMusic.album}</p>
+          <p className="text-center text-gray-400 text-sm">
+            {currentMusic.album}
+          </p>
+
+          {/* progress bar */}
+          <ProgressBar progress={progress} />
 
           {/* music controls */}
           <div className="flex items-center justify-center gap-4 mt-3">
