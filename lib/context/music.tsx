@@ -1,3 +1,4 @@
+import { SongProps } from "@/type";
 import {
   Dispatch,
   SetStateAction,
@@ -5,18 +6,6 @@ import {
   useContext,
   useState,
 } from "react";
-
-export type SongProps = {
-  id: number;
-  title: string;
-  playing: string;
-  time: string;
-  album: string;
-  thumbnail: string;
-  banner: string;
-  artist_name: string;
-  file: string;
-};
 
 type StatesProps = {
   songs: SongProps[] | null;

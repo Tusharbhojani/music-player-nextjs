@@ -1,4 +1,4 @@
-import { SongProps } from "./context/music";
+import { SongProps } from "@/type";
 
 export function getNextSongId(songs : SongProps[], currentId : number){
     const currentIndex = songs.findIndex(song => song.id === currentId);

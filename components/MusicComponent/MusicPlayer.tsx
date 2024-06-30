@@ -1,17 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Howl, Howler } from "howler";
-import { SongProps, useMusic } from "@/lib/context/music";
+import { useMusic } from "@/lib/context/music";
 import Image from "next/image";
 import { GiNextButton, GiPreviousButton } from "react-icons/gi";
 import { FaMusic, FaPause, FaPlay } from "react-icons/fa";
 import { getNextSongId, getPrevSongId } from "@/lib/utils";
 import ProgressBar from "./ProgressBar";
 import classNames from "classnames";
-
-export type progressProps = {
-  seek: number;
-  totalDuration: number;
-};
+import { SongProps, progressProps } from "@/type";
 
 export default function MusicPlayer() {
   const [
