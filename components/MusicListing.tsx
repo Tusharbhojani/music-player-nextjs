@@ -31,9 +31,9 @@ export default function MusicListing() {
           <tr className="">
             <td className="text-right">#</td>
             <td>Title</td>
-            <td>Playing</td>
+            <td className="hidden lg:table-cell">Playing</td>
             <td>Time</td>
-            <td>Album</td>
+            <td className="hidden lg:table-cell">Album</td>
           </tr>
         </thead>
 
@@ -67,12 +67,20 @@ export default function MusicListing() {
                       width={54}
                       height={54}
                     ></Image>
-                    {song.title}
+                    <div>
+                      <p className="mb-1">{song.title}</p>
+                      <p className="text-xs opacity-85 lg:hidden">
+                        {song.playing}
+                      </p>
+                      <p className="text-xs opacity-85 lg:hidden">
+                        {song.album}
+                      </p>
+                    </div>
                   </div>
                 </td>
-                <td>{song.playing}</td>
+                <td className="hidden lg:table-cell">{song.playing}</td>
                 <td>{song.time}</td>
-                <td>{song.album}</td>
+                <td className="hidden lg:table-cell">{song.album}</td>
               </Reorder.Item>
             );
           })}

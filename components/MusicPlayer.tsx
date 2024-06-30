@@ -3,9 +3,10 @@ import { Howl, Howler } from "howler";
 import { SongProps, useMusic } from "@/lib/context/music";
 import Image from "next/image";
 import { GiNextButton, GiPreviousButton } from "react-icons/gi";
-import { FaPause, FaPlay } from "react-icons/fa";
+import { FaMusic, FaPause, FaPlay } from "react-icons/fa";
 import { getNextSongId, getPrevSongId } from "@/lib/utils";
 import ProgressBar from "./MusicComponent/ProgressBar";
+import classNames from "classnames";
 
 export type progressProps = {
   seek: number;
@@ -17,6 +18,8 @@ export default function MusicPlayer() {
     { currentMusicId, isPlaying, songs },
     { setIsPlaying, setCurrentMusicId },
   ] = useMusic();
+
+  const [isOpen, setIsOpen] = useState(false);
   const soundInstance = useRef<Howl | null>(null);
   const [currentMusic, setCurrentMusic] = useState<SongProps | null>(null);
   const [progress, setProgress] = useState<progressProps>({
@@ -28,7 +31,7 @@ export default function MusicPlayer() {
 
   useEffect(() => {
     if (currentMusicId) {
-      setCurrentMusic(songs.find(({ id }) => id === currentMusicId) || null);
+      setCurrentMusic(songs?.find(({ id }) => id === currentMusicId) || null);
     }
   }, [currentMusicId]);
 
@@ -46,22 +49,21 @@ export default function MusicPlayer() {
       });
 
       soundInstance.current.on("end", function () {
-        
         setIsPlaying(false);
-        if( intervalRef.current){
+        if (intervalRef.current) {
           clearInterval(intervalRef.current);
         }
       });
 
       soundInstance.current.on("pause", function () {
         setIsPlaying(false);
-        if( intervalRef.current){
+        if (intervalRef.current) {
           clearInterval(intervalRef.current);
         }
       });
 
       soundInstance.current.on("play", function () {
-        if( intervalRef.current){
+        if (intervalRef.current) {
           clearInterval(intervalRef.current);
         }
         intervalRef.current = setInterval(() => {
@@ -78,7 +80,7 @@ export default function MusicPlayer() {
 
     return () => {
       // soundInstance.pause();
-      if( intervalRef.current){
+      if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
       if (soundInstance.current) {
@@ -103,23 +105,37 @@ export default function MusicPlayer() {
   }
 
   function handleNext() {
-    if (currentMusicId) {
+    if (currentMusicId && songs?.length) {
       const nextSong = getNextSongId(songs, currentMusicId);
       setCurrentMusicId(nextSong);
     }
   }
 
   function handlePrev() {
-    if (currentMusicId) {
+    if (currentMusicId && songs?.length) {
       const nextSong = getPrevSongId(songs, currentMusicId);
       setCurrentMusicId(nextSong);
     }
   }
 
   return (
-    <div className="relative h-full p-2 flex flex-col justify-end">
+    <div className="h-full p-2 flex flex-col justify-end">
+      {currentMusicId && (
+        <button
+          onClick={() => setIsOpen((prev) => !prev)}
+          className="absolute bottom-10 p-4 right-4 z-10 rounded-full bg-[#6B0000] text-white flex items-center justify-center lg:hidden"
+        >
+          <FaMusic size={25} />
+        </button>
+      )}
       {currentMusic && (
-        <div className="bg-[#6B0000] p-5 text-white rounded-xl">
+        <div
+          className={classNames(
+            "bg-[#6B0000] p-5 text-white rounded-xl",
+            isOpen &&
+              "absolute bottom-28 p-4 right-4 z-10 lg:relative lg:bottom-auto lg:right-auto lg:mb-5"
+          )}
+        >
           <p className="text-center pb-4">Now Playing</p>
           <Image
             src={currentMusic.banner}
