@@ -73,7 +73,7 @@ export default function MusicPlayer() {
             totalDuration: soundInstance.current.duration(),
           });
         }
-        
+
         intervalRef.current = setInterval(() => {
           if (soundInstance.current) {
             //  / soundInstance.current.duration() * 100
@@ -145,12 +145,16 @@ export default function MusicPlayer() {
           )}
         >
           <p className="text-center pb-4">Now Playing</p>
-          <Image
-            src={currentMusic.banner}
-            alt="music-banner"
-            width="239"
-            height="136"
-          />
+
+          <div className="aspect-video rounded-xl shadow overflow-hidden">
+            <Image
+              src={currentMusic.banner}
+              alt="music-banner"
+              width="239"
+              height="136"
+              className="w-full h-full object-cover object-center"
+            />
+          </div>
 
           <p className="text-center mt-3">{currentMusic.title}</p>
           <p className="text-center text-gray-400 text-sm">
