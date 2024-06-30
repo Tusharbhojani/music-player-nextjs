@@ -6,7 +6,7 @@ export const SONGS = [
         time: "2:30",
         album: "Thriller 25 Sup...",
         thumbnail: "",
-        banner: "",
+        banner: "/images/song_banner.png",
         artist_name: "Michael Jackson",
         file: "./audio/80s_vibe.mp3"
     },
@@ -17,9 +17,9 @@ export const SONGS = [
         time: "2:30",
         album: "Thriller 25 Sup...",
         thumbnail: "",
-        banner: "",
+        banner: "/images/mjb-2.jpg",
         artist_name: "Michael Jackson",
-        file: "./audio/80s_vibe.mp3"
+        file: "./audio/rave_digger.mp3"
     },
     {
         id: 3,
@@ -28,8 +28,8 @@ export const SONGS = [
         time: "2:30",
         album: "Thriller 25 Sup...",
         thumbnail: "",
-        banner: "",
+        banner: "/images/mjb-3.jpg",
         artist_name: "Michael Jackson",
-        file: "./audio/80s_vibe.mp3"
+        file: "./audio/running_out.mp3"
     }
 ]
