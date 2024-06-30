@@ -4,16 +4,24 @@ import Image from "next/image";
 import { useMusic } from "@/lib/context/music";
 import classNames from "classnames";
 import { FaMusic } from "react-icons/fa";
+import PlaylistShimmer from "./shimmers/PlaylistShimmer";
 
 export default function MusicListing() {
-  const [{ songs, currentMusicId, isPlaying }, { setSongs, setCurrentMusicId }] = useMusic();
+  const [
+    { songs, currentMusicId, isPlaying },
+    { setSongs, setCurrentMusicId },
+  ] = useMusic();
   const [isDragging, setIsDragging] = useState(false);
 
-  function playSong(id:number) {
+  function playSong(id: number) {
     if (!isDragging) {
       setCurrentMusicId(id);
       console.log("click event");
     }
+  }
+
+  if (!songs) {
+    return <PlaylistShimmer />;
   }
 
   return (
@@ -36,7 +44,7 @@ export default function MusicListing() {
               <Reorder.Item
                 onDrag={() => setIsDragging(true)}
                 onDragEnd={() => setIsDragging(false)}
-                onClick={()=> playSong(song.id)}
+                onClick={() => playSong(song.id)}
                 as="tr"
                 className={classNames(
                   "hover:bg-[#4c0000cd] transition-colors cursor-pointer",

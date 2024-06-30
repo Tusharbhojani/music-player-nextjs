@@ -5,7 +5,6 @@ import {
   useContext,
   useState,
 } from "react";
-import { SONGS } from "@/data/songs";
 
 export type SongProps = {
   id: number;
@@ -20,14 +19,14 @@ export type SongProps = {
 };
 
 type StatesProps = {
-  songs: SongProps[];
+  songs: SongProps[] | null;
   currentMusicId: number | null;
   isPlaying: boolean;
 };
 
 type UpdateStateProps = {
   setCurrentMusicId: Dispatch<SetStateAction<number | null>>;
-  setSongs: Dispatch<SetStateAction<SongProps[]>>;
+  setSongs: Dispatch<SetStateAction<SongProps[] | null>>;
   setIsPlaying: Dispatch<SetStateAction<boolean>>;
 };
 
@@ -38,19 +37,19 @@ export const MusicDispatchContext = createContext<UpdateStateProps | undefined>(
 
 export function MusicProvider({ children }: { children: React.ReactNode }) {
   const [currentMusicId, setCurrentMusicId] = useState<number | null>(null);
-  const [songs, setSongs] = useState<SongProps[]>(SONGS);
+  const [songs, setSongs] = useState<SongProps[] | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const states = {
     songs,
     currentMusicId,
-    isPlaying
+    isPlaying,
   };
 
   const updateStateFunctions = {
     setSongs,
     setCurrentMusicId,
-    setIsPlaying
+    setIsPlaying,
   };
 
   return (
